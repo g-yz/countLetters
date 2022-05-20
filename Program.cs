@@ -6,28 +6,21 @@ namespace Marketplace
     internal class Program
     {
         static void Main(string[] args){
+            Console.WriteLine("- Most repeated letter");
+            
             string sentence2 = "Lorem Ipsum is simply dummy ";
+            FindMostRepeatedLetter(sentence2);
             FindMostRepeatedLetterDictionary(sentence2);
+            FindMostRepeatedLetterToOrder(sentence2);
+
+            Console.WriteLine("- Most repeated word");
 
             string sentence = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."; 
             FindMostRepeatedWordFor(sentence);
             FindMostRepeatedWord(sentence);
         }
 
-        public static char FindMostRepeatedLetterDictionary(string sentence){
-            sentence = sentence.ToUpper().Replace(" ", String.Empty);
-
-            Dictionary<char, int> sentenceDict = new Dictionary<char, int>();
-            for(int i = 0; i < sentence.Length; i++){
-                if(sentenceDict.ContainsKey(sentence[i]))
-                    sentenceDict[sentence[i]]++;
-                else
-                    sentenceDict.Add(sentence[i], 1);
-            } 
-            char maxKey = sentenceDict.MaxBy(kvp => kvp.Value).Key; 
-            Console.WriteLine($"Answer: {maxKey} {sentenceDict[maxKey]} times.");
-            return maxKey;
-        }
+        /* Most repeated letter */
 
         public static char FindMostRepeatedLetter(string sentence){
             sentence = sentence.ToUpper().Replace(" ", String.Empty);
@@ -44,6 +37,21 @@ namespace Marketplace
             char ans = (char)(maxIndex + 65);
             Console.WriteLine($"Answer: {ans} {arraySentence[maxIndex]} times.");
             return ans;
+        }
+
+        public static char FindMostRepeatedLetterDictionary(string sentence){
+            sentence = sentence.ToUpper().Replace(" ", String.Empty);
+
+            Dictionary<char, int> sentenceDict = new Dictionary<char, int>();
+            for(int i = 0; i < sentence.Length; i++){
+                if(sentenceDict.ContainsKey(sentence[i]))
+                    sentenceDict[sentence[i]]++;
+                else
+                    sentenceDict.Add(sentence[i], 1);
+            } 
+            char maxKey = sentenceDict.MaxBy(kvp => kvp.Value).Key; 
+            Console.WriteLine($"Answer: {maxKey} {sentenceDict[maxKey]} times.");
+            return maxKey;
         }
 
         public static char FindMostRepeatedLetterToOrder(string sentence){
@@ -64,6 +72,8 @@ namespace Marketplace
             return ans;
         }
 
+        /* Most repeated word */
+
         public static string FindMostRepeatedWordFor(string sentence){
             string[] splitSentence = sentence.Split(' '); 
             int maxIndex = 0;
@@ -78,7 +88,7 @@ namespace Marketplace
                     maxValue = splitSentence[i];
                 }
             }
-            Console.WriteLine($"{maxIndex}: {maxValue}");
+            Console.WriteLine($"Answer: {maxValue} {maxIndex} times.");
             return maxValue;
         }
 
@@ -93,7 +103,7 @@ namespace Marketplace
                     maxValue = w;
                 }
             }
-            Console.WriteLine($"{maxIndex}: {maxValue}");
+            Console.WriteLine($"Answer: {maxValue} {maxIndex} times.");
             return maxValue;
         }
     }
